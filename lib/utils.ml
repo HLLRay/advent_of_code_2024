@@ -2,6 +2,8 @@ open Core
 
 let ( << ) = Fn.compose
 let zip_unequal xs ys = List.zip_with_remainder xs ys |> fst
+let ( = ) = Stdlib.( = )
+let ( <> ) = Stdlib.( <> )
 
 (** [x ^* y] is x to the power of y. Requires: [y] non-negative *)
 let ( ^* ) (b : int) (e : int) : int =
@@ -23,6 +25,11 @@ let read_lines_list ?(sep = [ ' ' ]) filename convert =
   let lines = In_channel.input_lines channel in
   List.map ~f:(List.map ~f:convert << String.split_on_chars ~on:sep) lines
 
+let read_grid filename : char array array =
+  let channel = In_channel.create filename in
+  let lines = In_channel.input_lines channel in
+  Array.of_list_map ~f:String.to_array lines
+
 let read_string filename = In_channel.(create filename |> input_all)
 
 let pprint_list pp fmt lst =
@@ -33,6 +40,9 @@ let pprint_list pp fmt lst =
   printf "[@[<hov 2>";
   pp_print_list ~pp_sep:sep pp fmt lst;
   printf "@]]"
+
+let print_grid (grid: char array array) = 
+  grid |> Array.map ~f:(String.of_char_list << List.of_array) |> List.of_array |> String.concat_lines |> print_string
 
 let print_solutions part_1_ans part_2_ans =
   printf "Part 1: %d\nPart 2: %d" part_1_ans part_2_ans
