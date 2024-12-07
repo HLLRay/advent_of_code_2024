@@ -4,6 +4,8 @@ let ( << ) = Fn.compose
 let zip_unequal xs ys = List.zip_with_remainder xs ys |> fst
 let ( = ) = Stdlib.( = )
 let ( <> ) = Stdlib.( <> )
+let ( ++ ) (x1, y1) (x2, y2) = (x1 + x2, y1 + y2)
+
 
 (** [x ^* y] is x to the power of y. Requires: [y] non-negative *)
 let ( ^* ) (b : int) (e : int) : int =
