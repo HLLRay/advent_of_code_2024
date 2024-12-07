@@ -6,7 +6,6 @@ let ( = ) = Stdlib.( = )
 let ( <> ) = Stdlib.( <> )
 let ( ++ ) (x1, y1) (x2, y2) = (x1 + x2, y1 + y2)
 
-
 (** [x ^* y] is x to the power of y. Requires: [y] non-negative *)
 let ( ^* ) (b : int) (e : int) : int =
   let rec exp_acc (b : int) (e : int) (acc : int) : int =
@@ -16,6 +15,7 @@ let ( ^* ) (b : int) (e : int) : int =
     | e -> exp_acc (b * b) (e / 2) (acc * b)
   in
   if b = 0 && e > 0 then 0 else exp_acc b e 1
+
 
 let read_lines_fmt filename fmt f =
   let channel = In_channel.create filename in
