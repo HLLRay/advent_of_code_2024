@@ -4,7 +4,6 @@ let ( << ) = Fn.compose
 let zip_unequal xs ys = List.zip_with_remainder xs ys |> fst
 let ( = ) = Stdlib.( = )
 let ( <> ) = Stdlib.( <> )
-let ( ++ ) (x1, y1) (x2, y2) = (x1 + x2, y1 + y2)
 
 (** [x ^* y] is x to the power of y. Requires: [y] non-negative *)
 let ( ^* ) (b : int) (e : int) : int =
@@ -16,6 +15,11 @@ let ( ^* ) (b : int) (e : int) : int =
   in
   if b = 0 && e > 0 then 0 else exp_acc b e 1
 
+let rec gcd (a : int) (b : int) : int = if b = 0 then a else gcd b (a % b)
+let gcd_abs (a : int) (b : int) : int = gcd (Int.abs a) (Int.abs b)
+
+let rec f_until ~f ~until args =
+  if until args then args else f_until ~f ~until (f args)
 
 let read_lines_fmt filename fmt f =
   let channel = In_channel.create filename in
@@ -43,8 +47,10 @@ let pprint_list pp fmt lst =
   pp_print_list ~pp_sep:sep pp fmt lst;
   printf "@]]"
 
-let print_grid (grid: char array array) = 
-  grid |> Array.map ~f:(String.of_char_list << List.of_array) |> List.of_array |> String.concat_lines |> print_string
+let print_grid (grid : char array array) =
+  grid
+  |> Array.map ~f:(String.of_char_list << List.of_array)
+  |> List.of_array |> String.concat_lines |> print_string
 
 let print_solutions part_1_ans part_2_ans =
   printf "Part 1: %d\nPart 2: %d" part_1_ans part_2_ans

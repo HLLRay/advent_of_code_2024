@@ -1,5 +1,6 @@
 open Core
 open Advent_of_code_2024.Utils
+open Advent_of_code_2024.Vectors
 
 let guard_pos_from_grid grid =
   Array.find_mapi grid ~f:(fun i row ->
@@ -26,10 +27,10 @@ let guard_in_map grid (i, j) =
 let has_obstacle grid (i, j) = guard_in_map grid (i, j) && grid.(i).(j) = '#'
 
 let step grid guard_pos guard_v =
-  let new_forward_pos = ref (!guard_pos ++ !guard_v) in
+  let new_forward_pos = ref (!guard_pos +: !guard_v) in
   while has_obstacle grid !new_forward_pos do
     guard_v := turn_right !guard_v;
-    new_forward_pos := !guard_pos ++ !guard_v
+    new_forward_pos := !guard_pos +: !guard_v
   done;
   !new_forward_pos
 

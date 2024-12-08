@@ -28,12 +28,13 @@ let correct_order rules update =
   List.fold_until update
     ~init:(Set.empty (module Int))
     ~f:(fun seen_pages page ->
-      if
-        Hashtbl.find rules page
-        |> Option.map ~f:(Set.are_disjoint seen_pages)
-        |> Option.value ~default:true
-      then Continue (Set.add seen_pages page)
-      else Stop false)
+      Core.Continue_or_stop.(
+        if
+          Hashtbl.find rules page
+          |> Option.map ~f:(Set.are_disjoint seen_pages)
+          |> Option.value ~default:true
+        then Continue (Set.add seen_pages page)
+        else Stop false))
     ~finish:(Fn.const true)
 
 let part_1_ans =
@@ -53,9 +54,10 @@ let part_2_ans =
         let inter =
           Hashtbl.find rules page |> Option.map ~f:(Set.inter seen_pages)
         in
-        if inter |> Option.map ~f:Set.is_empty |> Option.value ~default:true
-        then Continue (Set.add seen_pages page)
-        else Stop (Some (inter |> Option.value_exn |> Set.choose_exn, page)))
+        Core.Continue_or_stop.(
+          if inter |> Option.map ~f:Set.is_empty |> Option.value ~default:true
+          then Continue (Set.add seen_pages page)
+          else Stop (Some (inter |> Option.value_exn |> Set.choose_exn, page))))
       ~finish:(Fn.const None) update
   in
   let rec swap_pairs_until_fixed update =

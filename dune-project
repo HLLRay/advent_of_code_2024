@@ -18,7 +18,8 @@
  (name advent_of_code_2024)
  (depends
   (ocaml (>= 5.2))
-  core))
+  core)
+  (allow_empty))
 
 ; (documentation https://url/to/documentation)
 
