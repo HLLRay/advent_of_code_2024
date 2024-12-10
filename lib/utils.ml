@@ -1,6 +1,7 @@
 open Core
 
 let ( << ) = Fn.compose
+let ( >> ) x y = Fn.compose y x
 let zip_unequal xs ys = List.zip_with_remainder xs ys |> fst
 let ( = ) = Stdlib.( = )
 let ( <> ) = Stdlib.( <> )
