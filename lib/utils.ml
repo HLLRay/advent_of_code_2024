@@ -18,6 +18,7 @@ let ( ^* ) (b : int) (e : int) : int =
 
 let rec gcd (a : int) (b : int) : int = if b = 0 then a else gcd b (a % b)
 let gcd_abs (a : int) (b : int) : int = gcd (Int.abs a) (Int.abs b)
+let rec num_digits = function 0 -> 0 | n -> 1 + num_digits (n / 10)
 
 let rec f_until ~f ~until args =
   if until args then args else f_until ~f ~until (f args)

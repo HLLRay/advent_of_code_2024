@@ -31,10 +31,7 @@ let part_1_ans =
   |> List.sum (module Int) ~f:(fun { result; _ } -> result)
 
 let part_2_ans =
-  let ( || ) x y =
-    let rec num_digits = function 0 -> 0 | n -> 1 + num_digits (n / 10) in
-    (x * (10 ^* num_digits y)) + y
-  in
+  let ( || ) x y = (x * (10 ^* num_digits y)) + y in
   let operators = [ ( + ); ( * ); ( || ) ] in
   let equations = parse "inputs/07-02" in
   equations
