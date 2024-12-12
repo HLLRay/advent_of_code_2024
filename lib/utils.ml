@@ -6,6 +6,8 @@ let zip_unequal xs ys = List.zip_with_remainder xs ys |> fst
 let ( = ) = Stdlib.( = )
 let ( <> ) = Stdlib.( <> )
 
+let xor (a : bool) (b: bool): bool = (a || b) && not (a && b)
+
 (** [x ^* y] is x to the power of y. Requires: [y] non-negative *)
 let ( ^* ) (b : int) (e : int) : int =
   let rec exp_acc (b : int) (e : int) (acc : int) : int =

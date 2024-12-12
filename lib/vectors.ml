@@ -12,11 +12,11 @@ let v_in_grid (grid : 'a Array.t Array.t) ((i, j) : int * int) : bool =
   let max_j = if max_i > 0 then Array.length grid.(0) else 0 in
   0 <= i && i < max_i && 0 <= j && j < max_j
 
+let orth_neighbours (i, j) : (int * int) list =
+  [ (i - 1, j); (i, j + 1); (i + 1, j); (i, j - 1) ]
+
 let orth_neighbours_in_grid (grid : 'a Array.t Array.t) (pos : int * int) :
     (int * int) list =
-  let orth_neighbours (i, j) : (int * int) list =
-    [ (i - 1, j); (i, j + 1); (i + 1, j); (i, j - 1) ]
-  in
   List.filter ~f:(v_in_grid grid) (orth_neighbours pos)
 
 module IntPair = struct
