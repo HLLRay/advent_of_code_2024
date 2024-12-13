@@ -5,8 +5,7 @@ let ( >> ) x y = Fn.compose y x
 let zip_unequal xs ys = List.zip_with_remainder xs ys |> fst
 let ( = ) = Stdlib.( = )
 let ( <> ) = Stdlib.( <> )
-
-let xor (a : bool) (b: bool): bool = (a || b) && not (a && b)
+let xor (a : bool) (b : bool) : bool = (a || b) && not (a && b)
 
 (** [x ^* y] is x to the power of y. Requires: [y] non-negative *)
 let ( ^* ) (b : int) (e : int) : int =
@@ -29,6 +28,18 @@ let read_lines_fmt filename fmt f =
   let channel = In_channel.create filename in
   let lines = In_channel.input_lines channel in
   List.map ~f:(fun s -> Scanf.sscanf s fmt f) lines
+
+let read_repeat_scanf filename fmt f =
+  let channel = Scanf.Scanning.open_in filename in
+  let rec loop acc =
+    try
+      let res = Scanf.bscanf channel fmt f in
+      loop (res :: acc)
+    with
+    | End_of_file -> List.rev acc
+    | exn -> raise exn
+  in
+  loop []
 
 let read_lines_list ?(sep = [ ' ' ]) filename convert =
   let channel = In_channel.create filename in
