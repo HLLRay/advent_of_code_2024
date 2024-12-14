@@ -10,6 +10,8 @@ let ( <:> ) (x1, y1) (x2, y2) = (x1 * y1) + (x2 * y2)
 let ( *: ) (a11, a12, a21, a22) (x, y) =
   ((a11 * x) + (a12 * y), (a21 * x) + (a22 * y))
 
+let modVec (x, y) (mod_x, mod_y) = (x % mod_x, y % mod_y)
+
 let v_in_grid (grid : 'a Array.t Array.t) ((i, j) : int * int) : bool =
   let max_i = Array.length grid in
   let max_j = if max_i > 0 then Array.length grid.(0) else 0 in
