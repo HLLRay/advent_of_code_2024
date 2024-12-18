@@ -12,6 +12,9 @@ let ( *: ) (a11, a12, a21, a22) (x, y) =
 
 let modVec (x, y) (mod_x, mod_y) = (x % mod_x, y % mod_y)
 
+let turn_right (i, j) = (j, -i)
+let turn_left (i, j) = (-j, i)
+
 let v_in_grid (grid : 'a Array.t Array.t) ((i, j) : int * int) : bool =
   let max_i = Array.length grid in
   let max_j = if max_i > 0 then Array.length grid.(0) else 0 in
@@ -26,6 +29,12 @@ let orth_neighbours_in_grid (grid : 'a Array.t Array.t) (pos : int * int) :
 
 let singular (a, b, c, d) = (a * d) - (b * c) = 0
 let colinear (x1, y1) (x2, y2) = singular (x1, x2, y1, y2)
+
+let find_last_f ~f grid =
+  let robot_pos = ref (-1, -1) in
+  Array.iteri grid ~f:(fun i ->
+      Array.iteri ~f:(fun j char -> if f char then robot_pos := (i, j) else ()));
+  !robot_pos
 
 module IntPair = struct
   module T = struct

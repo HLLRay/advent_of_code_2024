@@ -17,8 +17,6 @@ let guard_v_from_grid grid (i, j) =
   | '<' -> (0, -1)
   | _ -> raise (Invalid_argument "Unknown character")
 
-let turn_right (i, j) = (j, -i)
-
 let guard_in_map grid (i, j) =
   let max_i = Array.length grid in
   let max_j = if max_i > 0 then Array.length grid.(0) else 0 in
