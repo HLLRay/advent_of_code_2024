@@ -68,4 +68,4 @@ let print_grid (grid : char array array) =
   |> List.of_array |> String.concat_lines |> print_string
 
 let print_solutions part_1_ans part_2_ans =
-  printf "Part 1: %d\nPart 2: %d" part_1_ans part_2_ans
+  printf "Part 1: %d\nPart 2: %d\n" part_1_ans part_2_ans

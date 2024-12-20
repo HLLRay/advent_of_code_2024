@@ -6,6 +6,7 @@ let ( -: ) v1 v2 = v1 +: ~:v2
 let ( @: ) alpha (x, y) = (alpha * x, alpha * y)
 let ( /: ) alpha (x, y) = (x / alpha, y / alpha)
 let ( <:> ) (x1, y1) (x2, y2) = (x1 * y1) + (x2 * y2)
+let l_inf_norm (x, y) = Int.abs x + Int.abs y
 
 let ( *: ) (a11, a12, a21, a22) (x, y) =
   ((a11 * x) + (a12 * y), (a21 * x) + (a22 * y))
