@@ -24,6 +24,14 @@ let rec num_digits = function 0 -> 0 | n -> 1 + num_digits (n / 10)
 let rec f_until ~f ~until args =
   if until args then args else f_until ~f ~until (f args)
 
+let rec gen_permutations = function
+  | [] -> []
+  | [ x ] -> [ [ x ] ]
+  | xs ->
+      List.concat_mapi xs ~f:(fun i x ->
+          let xs_minus_x = List.filteri xs ~f:(fun j _ -> i <> j) in
+          List.map (gen_permutations xs_minus_x) ~f:(fun ys -> x :: ys))
+
 let read_lines_fmt filename fmt f =
   let channel = In_channel.create filename in
   let lines = In_channel.input_lines channel in

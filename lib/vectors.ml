@@ -54,3 +54,18 @@ module IntPair = struct
   include Comparable.Make (T)
   include Tuple.Hashable_t (Int) (Int)
 end
+
+module CharPair = struct
+  module T = struct
+    type t = char * char
+
+    let compare x y = Tuple2.compare ~cmp1:Char.compare ~cmp2:Char.compare x y
+    let sexp_of_t = Tuple2.sexp_of_t Char.sexp_of_t Char.sexp_of_t
+    let t_of_sexp = Tuple2.t_of_sexp Char.t_of_sexp Char.t_of_sexp
+    let hash = Hashtbl.hash
+  end
+
+  include T
+  include Comparable.Make (T)
+  include Tuple.Hashable_t (Char) (Char)
+end
