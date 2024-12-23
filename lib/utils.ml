@@ -32,6 +32,14 @@ let rec gen_permutations = function
           let xs_minus_x = List.filteri xs ~f:(fun j _ -> i <> j) in
           List.map (gen_permutations xs_minus_x) ~f:(fun ys -> x :: ys))
 
+let pairs lst =
+  let rec pairs_acc acc = function
+    | [] -> acc
+    | x :: xs ->
+        List.fold xs ~init:(pairs_acc acc xs) ~f:(fun acc y -> (x, y) :: acc)
+  in
+  pairs_acc [] lst
+
 let read_lines_fmt filename fmt f =
   let channel = In_channel.create filename in
   let lines = In_channel.input_lines channel in
