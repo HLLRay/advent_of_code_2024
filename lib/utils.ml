@@ -69,19 +69,12 @@ let read_grid filename : char array array =
 
 let read_string filename = In_channel.(create filename |> input_all)
 
-let pprint_list pp fmt lst =
-  let open Format in
-  let sep ff () =
-    pp_print_custom_break ~fits:(";", 1, "") ~breaks:(";", 0, "") ff
-  in
-  printf "[@[<hov 2>";
-  pp_print_list ~pp_sep:sep pp fmt lst;
-  printf "@]]"
-
 let print_grid (grid : char array array) =
   grid
   |> Array.map ~f:(String.of_char_list << List.of_array)
   |> List.of_array |> String.concat_lines |> print_string
+
+let print_sexp sexp = sexp |> Sexp.to_string_hum |> print_endline
 
 let print_solutions part_1_ans part_2_ans =
   printf "Part 1: %d\nPart 2: %d\n" part_1_ans part_2_ans

@@ -24,6 +24,7 @@
               ocaml
               ocamlformat
               findlib
+              utop
               core
               dune_3
             ];

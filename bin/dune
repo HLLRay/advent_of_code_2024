@@ -23,5 +23,6 @@
   day21
   day22
   day23
-  day24)
+  day24
+  day25)
  (libraries advent_of_code_2024 core))

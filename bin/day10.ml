@@ -37,9 +37,7 @@ let part_2_ans =
         orth_neighbours_in_grid map (i, j)
         |> List.filter ~f:(fun (new_i, new_j) ->
                map.(new_i).(new_j) = current_height + 1))
-      ~seen:(const false)
-      ~mark_seen:(const ())
-      (i, j)
+      ~seen:(const false) ~mark_seen:(const ()) (i, j)
     |> Sequence.count ~f:(fun (i, j) -> map.(i).(j) = 9)
   in
   Array.foldi ~init:0
